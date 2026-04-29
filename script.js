@@ -99,9 +99,12 @@ async function saveConfig() {
         lastUpdated: new Date().toISOString()
     };
     
+    console.log('Saving config, isDevelopment:', isDevelopment);
+    
     if (isDevelopment) {
         // Development mode: save to file via API
         try {
+            console.log('Sending save request to /api/save-config');
             const response = await fetch('/api/save-config', {
                 method: 'POST',
                 headers: {
@@ -110,6 +113,7 @@ async function saveConfig() {
                 body: JSON.stringify(data, null, 2)
             });
             
+            console.log('Save response status:', response.status);
             const result = await response.json();
             if (result.success) {
                 console.log('✅ Config saved to config.json');
@@ -255,15 +259,54 @@ function createMarkerElement(poi, position) {
     return marker;
 }
 
+// Position popup to avoid clipping at screen edges
+function positionPopup(marker) {
+    const popup = marker.querySelector('.poi-info-popup');
+    if (!popup) return;
+    
+    const markerRect = marker.getBoundingClientRect();
+    const popupWidth = popup.offsetWidth || 300;
+    const popupHeight = popup.offsetHeight || 200;
+    
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    // Calculate default position (below marker, centered)
+    let top = markerRect.bottom + 10;
+    let left = markerRect.left + (markerRect.width / 2) - (popupWidth / 2);
+    
+    // Adjust horizontal position if it would overflow
+    if (left + popupWidth > viewportWidth - 20) {
+        left = viewportWidth - popupWidth - 20;
+    }
+    if (left < 20) {
+        left = 20;
+    }
+    
+    // Adjust vertical position if it would overflow (show above marker instead)
+    if (top + popupHeight > viewportHeight - 20) {
+        top = markerRect.top - popupHeight - 10;
+        
+        // If still overflows, position at bottom of viewport
+        if (top < 20) {
+            top = Math.min(markerRect.bottom + 10, viewportHeight - popupHeight - 20);
+        }
+    }
+    
+    popup.style.top = top + 'px';
+    popup.style.left = left + 'px';
+}
+
 // Setup marker event listeners
 function setupMarkerListeners() {
     const markers = document.querySelectorAll('.poi-marker');
     
     markers.forEach((marker, index) => {
         // Hover event for desktop
-        marker.addEventListener('mouseenter', function() {
+        marker.addEventListener('mouseenter', function(e) {
             if (!isAdminMode) {
                 this.classList.add('active');
+                positionPopup(this);
             }
         });
         
@@ -290,6 +333,9 @@ function setupMarkerListeners() {
                 });
                 
                 this.classList.toggle('active');
+                if (this.classList.contains('active')) {
+                    positionPopup(this);
+                }
             }
         });
         
@@ -383,7 +429,7 @@ function toggleAdminMode(enable) {
         document.body.classList.add('admin-mode');
         enableDragging();
     } else {
-        adminToggle.style.display = 'inline-block';
+        adminToggle.style.display = settings.showAdminButton ? 'inline-block' : 'none';
         adminControls.style.display = 'none';
         document.body.classList.remove('admin-mode');
         disableDragging();
@@ -497,10 +543,16 @@ function stopDrag() {
         // Update position in active map
         const poiId = draggedElement.getAttribute('data-poi');
         const activeMap = availableMaps.find(m => m.id === activeMapId);
-        if (activeMap && activeMap.positions && activeMap.positions[poiId]) {
+        if (activeMap && activeMap.positions) {
+            if (!activeMap.positions[poiId]) {
+                activeMap.positions[poiId] = {};
+            }
             activeMap.positions[poiId].top = draggedElement.style.top;
             activeMap.positions[poiId].left = draggedElement.style.left;
+            console.log(`Updated ${poiId} position:`, activeMap.positions[poiId]);
             saveConfig();
+        } else {
+            console.error('Could not save position - activeMap or positions not found', { activeMap, activeMapId });
         }
         
         draggedElement = null;
@@ -517,10 +569,16 @@ function stopDragTouch() {
         // Update position in active map
         const poiId = draggedElement.getAttribute('data-poi');
         const activeMap = availableMaps.find(m => m.id === activeMapId);
-        if (activeMap && activeMap.positions && activeMap.positions[poiId]) {
+        if (activeMap && activeMap.positions) {
+            if (!activeMap.positions[poiId]) {
+                activeMap.positions[poiId] = {};
+            }
             activeMap.positions[poiId].top = draggedElement.style.top;
             activeMap.positions[poiId].left = draggedElement.style.left;
+            console.log(`Updated ${poiId} position:`, activeMap.positions[poiId]);
             saveConfig();
+        } else {
+            console.error('Could not save position - activeMap or positions not found', { activeMap, activeMapId });
         }
         
         draggedElement = null;

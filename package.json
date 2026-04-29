@@ -1,0 +1,18 @@
+{
+  "name": "site_map",
+  "version": "1.0.0",
+  "description": "An interactive, mobile-responsive map of Got Greens Farm featuring clickable points of interest.",
+  "main": "script.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "vite": "^8.0.10"
+  }
+}

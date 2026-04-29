@@ -1,0 +1,140 @@
+{
+  "settings": {
+    "showLabelsDefault": true,
+    "showAdminButton": false
+  },
+  "activeMapId": "default",
+  "pois": [
+    {
+      "id": "polytunnel",
+      "label": "Polytunnel",
+      "description": "Our polytunnel provides a controlled environment for growing a variety of crops year-round, protecting plants from harsh weather while maximizing yield.",
+      "url": "https://www.gotgreens.farm/point-of-interest/polytunnel"
+    },
+    {
+      "id": "wildflower-area",
+      "label": "Wildflower Area",
+      "description": "A vibrant wildflower meadow that supports local pollinators and creates a beautiful habitat for beneficial insects and wildlife.",
+      "url": "https://www.gotgreens.farm/point-of-interest/wildflower-area"
+    },
+    {
+      "id": "coppice",
+      "label": "Coppice",
+      "description": "Traditional woodland management area where we sustainably harvest wood for crafts, fuel, and materials while promoting biodiversity.",
+      "url": "https://www.gotgreens.farm/point-of-interest/coppice"
+    },
+    {
+      "id": "office",
+      "label": "Office",
+      "description": "Our farm office and visitor center where we coordinate operations, welcome guests, and share information about our sustainable farming practices.",
+      "url": "https://www.gotgreens.farm/point-of-interest/office"
+    },
+    {
+      "id": "outdoor-kitchen",
+      "label": "Outdoor Kitchen",
+      "description": "A communal outdoor cooking space where we prepare farm-fresh meals and host cooking workshops using produce grown right here on the farm.",
+      "url": "https://www.gotgreens.farm/point-of-interest/outdoor-kitchen"
+    },
+    {
+      "id": "bees",
+      "label": "Bees",
+      "description": "Our thriving bee colonies produce delicious local honey while providing essential pollination services for our crops and surrounding wildflowers.",
+      "url": "https://www.gotgreens.farm/point-of-interest/bees"
+    },
+    {
+      "id": "orchard",
+      "label": "Orchard",
+      "description": "A diverse collection of fruit trees including apples, pears, and plums, managed using organic and permaculture principles.",
+      "url": "https://www.gotgreens.farm/point-of-interest/orchard"
+    },
+    {
+      "id": "pond",
+      "label": "Pond",
+      "description": "Our wildlife pond supports a diverse ecosystem of amphibians, insects, and aquatic plants while providing water for irrigation.",
+      "url": "https://www.gotgreens.farm/point-of-interest/pond"
+    },
+    {
+      "id": "green-woodworking",
+      "label": "Green Woodworking",
+      "description": "Traditional woodworking area where we craft functional and beautiful items from freshly harvested wood using time-honored techniques.",
+      "url": "https://www.gotgreens.farm/point-of-interest/green-woodworking"
+    },
+    {
+      "id": "compost-toilets",
+      "label": "Compost Toilets",
+      "description": "Eco-friendly composting toilet facilities that convert human waste into valuable compost, closing the nutrient loop on our farm.",
+      "url": "https://www.gotgreens.farm/point-of-interest/compost-toilets"
+    },
+    {
+      "id": "chickens",
+      "label": "Chickens",
+      "description": "Our free-range chicken flock provides fresh eggs daily while helping with pest control and soil fertilization across the farm.",
+      "url": "https://www.gotgreens.farm/point-of-interest/chickens"
+    },
+    {
+      "id": "market-garden",
+      "label": "Market Garden",
+      "description": "The heart of our vegetable production where we grow a wide variety of seasonal organic vegetables for our local community.",
+      "url": "https://www.gotgreens.farm/point-of-interest/market-garden"
+    }
+  ],
+  "maps": [
+    {
+      "id": "default",
+      "filename": "farm-map.jpg",
+      "name": "Default Map",
+      "active": true,
+      "positions": {
+        "polytunnel": {
+          "top": "32.1447%",
+          "left": "48.2487%"
+        },
+        "wildflower-area": {
+          "top": "47.6666%",
+          "left": "62.3333%"
+        },
+        "coppice": {
+          "top": "26.7686%",
+          "left": "72.75%"
+        },
+        "office": {
+          "top": "44.1987%",
+          "left": "50.25%"
+        },
+        "outdoor-kitchen": {
+          "top": "18%",
+          "left": "42%"
+        },
+        "bees": {
+          "top": "28.7246%",
+          "left": "18.5833%"
+        },
+        "orchard": {
+          "top": "36.47%",
+          "left": "12.6667%"
+        },
+        "pond": {
+          "top": "49.7946%",
+          "left": "8.83333%"
+        },
+        "green-woodworking": {
+          "top": "68%",
+          "left": "22%"
+        },
+        "compost-toilets": {
+          "top": "81.0485%",
+          "left": "43.1654%"
+        },
+        "chickens": {
+          "top": "62.866%",
+          "left": "49.9167%"
+        },
+        "market-garden": {
+          "top": "69.6155%",
+          "left": "61.9167%"
+        }
+      }
+    }
+  ],
+  "lastUpdated": "2026-04-29T11:01:11.367Z"
+}

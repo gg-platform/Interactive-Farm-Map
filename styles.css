@@ -1,0 +1,757 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #0d3b2e 0%, #1a4d3a 50%, #0d3b2e 100%);
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, #2d6a4f 0%, #1b4332 100%);
+    color: white;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+.map-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+.farm-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.poi-marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.poi-marker:hover {
+    z-index: 20;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.marker-dot {
+    width: 24px;
+    height: 24px;
+    background: #FF5722;
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.5);
+    position: relative;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.5),
+                    0 0 0 0 rgba(255, 87, 34, 0.7);
+    }
+    50% {
+        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.5),
+                    0 0 0 10px rgba(255, 87, 34, 0);
+    }
+}
+
+.marker-label {
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    color: #333;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 5;
+}
+
+/* POI Info Popup */
+.poi-info-popup {
+    position: absolute;
+    top: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    color: #333;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    min-width: 250px;
+    max-width: 300px;
+    z-index: 10;
+}
+
+.poi-info-popup h3 {
+    margin: 0 0 0.5rem 0;
+    color: #1b4332;
+    font-size: 1rem;
+}
+
+.poi-info-popup p {
+    margin: 0 0 0.75rem 0;
+    line-height: 1.5;
+    color: #555;
+}
+
+.dig-deeper-btn {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #2d6a4f 0%, #1b4332 100%);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
+}
+
+.dig-deeper-btn:hover {
+    background: linear-gradient(135deg, #1b4332 0%, #081c15 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.poi-marker:hover .marker-label,
+.poi-marker.active .marker-label {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+.poi-marker:hover .poi-info-popup,
+.poi-marker.active .poi-info-popup {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+/* Show labels by default when enabled */
+.show-labels-default .poi-marker .marker-label {
+    opacity: 1;
+}
+
+.show-labels-default .poi-marker:hover .marker-label,
+.show-labels-default .poi-marker.active .marker-label {
+    transform: translateX(-50%) translateY(-5px);
+}
+
+.poi-marker:active {
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+.marker-dot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+}
+
+footer {
+    background: #f5f5f5;
+    padding: 1.5rem;
+    text-align: center;
+    color: #666;
+    font-size: 0.875rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+
+    .container {
+        border-radius: 0;
+    }
+
+    header {
+        padding: 1.5rem 1rem;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.875rem;
+    }
+
+    .marker-dot {
+        width: 20px;
+        height: 20px;
+    }
+
+    .marker-dot::before {
+        width: 10px;
+        height: 10px;
+    }
+
+    .marker-label {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.6rem;
+        top: 28px;
+    }
+
+    /* Always show labels on mobile for better UX */
+    .marker-label {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    .poi-marker:hover .marker-label {
+        transform: translateX(-50%) translateY(-3px);
+    }
+    
+    /* Adjust info popup for mobile */
+    .poi-info-popup {
+        min-width: 200px;
+        max-width: 250px;
+        font-size: 0.8rem;
+        padding: 0.75rem;
+    }
+    
+    .poi-info-popup h3 {
+        font-size: 0.9rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .marker-label {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.5rem;
+    }
+
+    header h1 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Landscape mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    header {
+        padding: 1rem;
+    }
+
+    header h1 {
+        font-size: 1.25rem;
+    }
+
+    .subtitle {
+        font-size: 0.75rem;
+    }
+}
+
+/* Tablet and desktop */
+@media (min-width: 769px) {
+    body {
+        padding: 2rem;
+    }
+
+    header {
+        padding: 3rem 2rem;
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    .marker-dot {
+        width: 28px;
+        height: 28px;
+    }
+
+    .marker-label {
+        font-size: 1rem;
+        top: 38px;
+    }
+}
+
+/* ============= ADMIN MODE STYLES ============= */
+
+.admin-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.admin-toggle:hover {
+    background: white;
+    color: #2d6a4f;
+}
+
+.admin-controls {
+    background: linear-gradient(135deg, #2d6a4f 0%, #1b4332 100%);
+    padding: 1rem;
+    border-bottom: 3px solid #081c15;
+}
+
+.admin-info {
+    text-align: center;
+    margin-bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.admin-status {
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Toggle switch */
+.toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    font-size: 0.875rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-label input[type="checkbox"] {
+    appearance: none;
+    width: 48px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.toggle-label input[type="checkbox"]:checked {
+    background: #52b788;
+}
+
+.toggle-label input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s ease;
+}
+
+.toggle-label input[type="checkbox"]:checked::before {
+    transform: translateX(24px);
+}
+
+.admin-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.admin-btn {
+    background: white;
+    color: #1b4332;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.admin-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: #d8f3dc;
+}
+
+.admin-btn:active {
+    transform: translateY(0);
+}
+
+.exit-btn {
+    background: #b7e4c7;
+    color: #1b4332;
+}
+
+.exit-btn:hover {
+    background: #95d5b2;
+}
+
+/* Admin mode - draggable markers */
+.admin-mode .poi-marker {
+    cursor: move !important;
+}
+
+.admin-mode .poi-marker .marker-label {
+    opacity: 1 !important;
+    pointer-events: none;
+}
+
+.poi-marker.dragging {
+    z-index: 1000;
+    opacity: 0.8;
+}
+
+.poi-marker.draggable .marker-dot {
+    animation: none;
+    border-color: #52b788;
+    box-shadow: 0 4px 12px rgba(82, 183, 136, 0.5);
+}
+
+/* ============= MODAL STYLES ============= */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    color: #666;
+    cursor: pointer;
+    line-height: 1;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.modal h2 {
+    color: #1b4332;
+    margin-bottom: 1.5rem;
+    padding-right: 2rem;
+}
+
+.modal h3 {
+    color: #2d6a4f;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Form styles */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #d8f3dc;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #d8f3dc;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #52b788;
+}
+
+.form-group input:disabled {
+    background: #f0f0f0;
+    color: #666;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary, .btn-danger, .btn-sm {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background: #2d6a4f;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1b4332;
+}
+
+.btn-secondary {
+    background: #95d5b2;
+    color: #1b4332;
+}
+
+.btn-secondary:hover {
+    background: #74c69d;
+}
+
+.btn-danger {
+    background: #d00000;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #9d0208;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+/* Map management */
+.map-management {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.upload-section {
+    padding: 1.5rem;
+    background: #f0f0f0;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.help-text {
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.875rem;
+}
+
+.maps-list {
+    min-height: 200px;
+}
+
+#maps-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.map-card {
+    border: 2px solid #d8f3dc;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.map-card:hover {
+    border-color: #52b788;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.map-card.active {
+    border-color: #2d6a4f;
+    border-width: 3px;
+    box-shadow: 0 4px 16px rgba(45, 106, 79, 0.3);
+}
+
+.map-preview {
+    width: 100%;
+    height: 150px;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.map-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.map-info {
+    padding: 1rem;
+    background: white;
+}
+
+.map-info h4 {
+    margin: 0 0 0.5rem 0;
+    color: #1b4332;
+    font-size: 1rem;
+}
+
+.map-filename {
+    margin: 0;
+    color: #666;
+    font-size: 0.75rem;
+    word-break: break-all;
+}
+
+.active-badge {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    background: #2d6a4f;
+    color: white;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.map-actions {
+    padding: 0.75rem 1rem;
+    background: #f8f9fa;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+/* Responsive admin controls */
+@media (max-width: 480px) {
+    .admin-toggle {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+    
+    .admin-controls {
+        padding: 0.75rem;
+    }
+    
+    .admin-status {
+        font-size: 0.875rem;
+    }
+    
+    .admin-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+    
+    .modal-content {
+        padding: 1.5rem;
+    }
+    
+    #maps-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .btn-primary, .btn-secondary, .btn-danger {
+        padding: 0.6rem 1rem;
+        font-size: 0.875rem;
+    }
+}

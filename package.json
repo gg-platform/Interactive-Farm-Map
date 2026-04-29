@@ -14,5 +14,9 @@
   "type": "module",
   "devDependencies": {
     "vite": "^8.0.10"
+  },
+  "dependencies": {
+    "@fluentui/web-components": "^2.6.1",
+    "leaflet": "^1.9.4"
   }
 }

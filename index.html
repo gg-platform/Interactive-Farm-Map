@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Got Greens Farm - Interactive Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script type="module" crossorigin src="./assets/index-Ct38v7Nj.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CTHmjwJn.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Got Greens Farm</h1>
+                <p class="subtitle">Live location tracking</p>
+            </div>
+            <fluent-button id="admin-toggle" appearance="stealth" style="display: none;">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10.5 1a1 1 0 00-1 0l-5 3A1 1 0 004 5v5.5a7 7 0 003.5 6.062L10 18l2.5-1.438A7 7 0 0016 10.5V5a1 1 0 00-.5-.866l-5-3z"/>
+                </svg>
+            </fluent-button>
+        </header>
+        
+        <!-- Admin Controls -->
+        <div id="admin-controls" class="admin-controls" style="display: none;">
+            <div class="admin-card">
+                <div class="admin-header">
+                    <span class="admin-status">Admin Mode</span>
+                    <fluent-button id="exit-admin" appearance="lightweight" size="small">Exit</fluent-button>
+                </div>
+                <div class="admin-switches">
+                    <fluent-switch id="show-labels-toggle">Show Labels</fluent-switch>
+                    <fluent-switch id="show-admin-toggle" checked>Admin Button</fluent-switch>
+                </div>
+                <div class="admin-actions">
+                    <fluent-button id="add-location" appearance="accent">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a1 1 0 011 1v4h4a1 1 0 110 2H9v4a1 1 0 11-2 0V9H3a1 1 0 110-2h4V3a1 1 0 011-1z"/></svg>
+                        Add Location
+                    </fluent-button>
+                </div>
+            </div>
+        </div>
+
+        <div id="map" class="map-container"></div>
+        
+        <!-- Location Controls -->
+        <div class="map-controls">
+            <fluent-button id="locate-btn" appearance="accent" class="locate-btn">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10 4a6 6 0 100 12 6 6 0 000-12zM2 10a8 8 0 1116 0 8 8 0 01-16 0z"/>
+                    <path d="M10 9a1 1 0 100 2 1 1 0 000-2z"/>
+                </svg>
+            </fluent-button>
+        </div>
+
+        <!-- Content Viewer Modal -->
+        <div id="content-modal" class="modal">
+            <div class="modal-content content-viewer">
+                <div class="modal-header">
+                    <h2 id="content-title">Location Details</h2>
+                    <fluent-button id="content-close-btn" appearance="stealth">&times;</fluent-button>
+                </div>
+                <div class="content-frame-container">
+                    <iframe id="content-frame" src=""></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- POI Details Sheet -->
+        <div id="poi-sheet" class="bottom-sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-content">
+                <h2 id="sheet-title"></h2>
+                <p id="sheet-description"></p>
+                <fluent-button id="sheet-link" appearance="accent">Learn More</fluent-button>
+            </div>
+        </div>
+
+        <!-- POI Edit Modal -->
+        <div id="poi-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title">Edit Location</h2>
+                    <fluent-button id="modal-close-btn" appearance="stealth">&times;</fluent-button>
+                </div>
+                <form id="poi-form">
+                    <fluent-text-field id="poi-id" placeholder="e.g., polytunnel" required>
+                        <label slot="label">ID (slug)</label>
+                    </fluent-text-field>
+                    <fluent-text-field id="poi-label" placeholder="e.g., Polytunnel" required>
+                        <label slot="label">Label</label>
+                    </fluent-text-field>
+                    <fluent-text-area id="poi-description" placeholder="A brief description..." required resize="vertical">
+                        <label slot="label">Description</label>
+                    </fluent-text-area>
+                    <fluent-text-field id="poi-url" type="url" placeholder="https://www.gotgreens.farm/..." required>
+                        <label slot="label">URL</label>
+                    </fluent-text-field>
+                    <fluent-text-field id="poi-lat" type="number" placeholder="Latitude" required step="0.0001">
+                        <label slot="label">Latitude</label>
+                    </fluent-text-field>
+                    <fluent-text-field id="poi-lng" type="number" placeholder="Longitude" required step="0.0001">
+                        <label slot="label">Longitude</label>
+                    </fluent-text-field>
+                    <div class="form-buttons">
+                        <fluent-button type="submit" appearance="accent">Save</fluent-button>
+                        <fluent-button type="button" id="delete-poi" appearance="stealth" style="display: none;">Delete</fluent-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

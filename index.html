@@ -31,6 +31,38 @@
                 <div class="admin-switches">
                     <fluent-switch id="show-labels-toggle">Show Labels</fluent-switch>
                     <fluent-switch id="show-admin-toggle" checked>Admin Button</fluent-switch>
+                    <fluent-switch id="overlay-toggle" checked>Show Overlay</fluent-switch>
+                </div>
+                <div class="overlay-control">
+                    <label>Overlay Opacity</label>
+                    <input type="range" id="overlay-opacity" min="0" max="100" value="70" step="5">
+                    <span id="opacity-value">70%</span>
+                </div>
+                <div class="overlay-control" style="opacity: 0.5; pointer-events: none;">
+                    <label>Overlay Rotation (degrees) - Disabled</label>
+                    <input type="range" id="overlay-rotation" min="-45" max="45" value="0" step="0.5" disabled>
+                    <span id="rotation-value">0°</span>
+                    <div style="font-size: 10px; color: #d13438; margin-top: 4px;">⚠ Rotation causes position drift at different zoom levels</div>
+                </div>
+                <div class="overlay-control">
+                    <label>Overlay Scale</label>
+                    <input type="range" id="overlay-scale" min="80" max="500" value="100" step="1">
+                    <span id="scale-value">100%</span>
+                </div>
+                <fluent-button id="edit-overlay-position" appearance="outline" style="margin-top: 8px; width: 100%;">Edit Overlay Position</fluent-button>
+                <div id="overlay-position-controls" style="display: none; margin-top: 12px;">
+                    <div style="text-align: center; margin-bottom: 8px;">
+                        <fluent-button id="move-up" appearance="outline" style="width: 40px; height: 40px;">↑</fluent-button>
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 8px;">
+                        <fluent-button id="move-left" appearance="outline" style="width: 40px; height: 40px;">←</fluent-button>
+                        <fluent-button id="move-down" appearance="outline" style="width: 40px; height: 40px;">↓</fluent-button>
+                        <fluent-button id="move-right" appearance="outline" style="width: 40px; height: 40px;">→</fluent-button>
+                    </div>
+                    <div style="font-size: 11px; color: #605e5c; text-align: center;">
+                        Fine adjustment: Shift+Arrow for smaller movements
+                    </div>
+                    <fluent-button id="done-overlay-position" appearance="accent" style="margin-top: 8px; width: 100%;">Done</fluent-button>
                 </div>
                 <div class="admin-actions">
                     <fluent-button id="add-location" appearance="accent">
@@ -96,10 +128,10 @@
                     <fluent-text-field id="poi-url" type="url" placeholder="https://www.gotgreens.farm/..." required>
                         <label slot="label">URL</label>
                     </fluent-text-field>
-                    <fluent-text-field id="poi-lat" type="number" placeholder="Latitude" required step="0.0001">
+                    <fluent-text-field id="poi-lat" placeholder="e.g., 51.5333" required>
                         <label slot="label">Latitude</label>
                     </fluent-text-field>
-                    <fluent-text-field id="poi-lng" type="number" placeholder="Longitude" required step="0.0001">
+                    <fluent-text-field id="poi-lng" placeholder="e.g., -2.5289" required>
                         <label slot="label">Longitude</label>
                     </fluent-text-field>
                     <div class="form-buttons">

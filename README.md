@@ -1,18 +1,19 @@
 # Got Greens Farm - Interactive Map
 
-An interactive, mobile-responsive map of Got Greens Farm featuring clickable points of interest with a powerful admin system.
+An interactive, mobile-first web map of Got Greens Farm using Leaflet with live GPS tracking, custom watercolor overlay, and a powerful admin system.
 
 ## Features
 
-- 🗺️ Interactive map with customizable points of interest
-- 📱 Mobile-first responsive design
-- 🎨 Smooth animations and hover effects
-- ♿ Keyboard accessible
-- 🔗 Links to individual POI pages
-- 🛠️ **Admin Mode** - Drag & drop POI positioning, add/edit/delete locations
-- 🖼️ **Multiple Maps** - Upload and switch between different map views
-- 💾 **Data Management** - Export/import JSON configurations
-- 📝 **Rich Info** - Each POI has description and "Dig Deeper" links
+- 🗺️ **Live Interactive Map** - Leaflet-powered with OpenStreetMap tiles
+- 📍 **GPS Tracking** - Real-time user location with pulsing marker
+- 🎨 **Custom Watercolor Overlay** - Hand-drawn farm map overlay with adjustable opacity and position
+- 📱 **Mobile-First Design** - Fluent UI components optimized for touch
+- 🏷️ **POI Management** - 12 farm locations with descriptions and "Dig Deeper" content
+- 🖼️ **In-App Content Viewer** - View POI details without leaving the map
+- 🛠️ **Admin Mode** - Full POI editing, overlay positioning with arrow controls
+- 💾 **Persistent Config** - All changes save to config.json via API
+- 🎯 **Precise Controls** - Button-based overlay positioning (Shift for fine adjustment)
+- 🔒 **Keyboard Shortcut** - Ctrl+Shift+A to toggle admin mode
 
 ## Development Setup
 
@@ -48,26 +49,49 @@ An interactive, mobile-responsive map of Got Greens Farm featuring clickable poi
 
 ## Admin Mode
 
-1. Click "Admin Mode" button in the header
-2. **Drag Markers**: Click and drag any POI to reposition
-3. **Double-Click**: Edit POI details (label, description, URL)
-4. **Add Location**: Create new POIs
-5. **Manage Maps**: Upload new map images and set positions
-6. **Show Labels Toggle**: Control default label visibility
-7. **Export Data**: Download complete configuration
-8. **Import Data**: Load saved configurations
+Activate with **Ctrl+Shift+A** or toggle button in admin panel:
+
+### POI Management
+- **Drag Markers**: Click and drag POI markers to reposition
+- **Edit POI**: Click marker then edit in form (ID, label, description, URL, coordinates)
+- **Add Location**: Create new POIs with "Add Location" button
+- **Delete**: Remove POIs via edit form
+
+### Overlay Controls
+- **Edit Overlay Position**: Click to activate arrow button controls
+- **Arrow Buttons**: ↑ ↓ ← → to move overlay (each click = ~2 meters)
+- **Fine Adjustment**: Shift+Click arrows for precise movements (~0.2 meters)
+- **Keyboard**: Arrow keys work when position controls are active
+- **Opacity Slider**: Adjust overlay transparency (0-100%)
+- **Scale Slider**: Resize overlay while maintaining aspect ratio (80-500%)
+- **Toggle Overlay**: Show/hide the watercolor map overlay
+
+### Settings
+- **Show Labels**: Toggle permanent POI labels visibility
+- **Show Admin Button**: Display admin toggle button for all users
+
+All changes auto-save to `config.json` via Vite dev server API.
+
+## Tech Stack
+
+- **Leaflet 1.9.4** - Interactive mapping library
+- **Fluent UI Web Components 2.6.1** - Microsoft design system
+- **Vite 8.0.10** - Build tool and dev server
+- **Vanilla JavaScript** - ES6 modules, no framework bloat
+- **OpenStreetMap** - Free, collaborative map tiles
 
 ## Project Structure
 
 ```
 site_map/
-├── config.json          # POI and map configuration
-├── index.html           # Main HTML file
-├── script.js            # Application logic
-├── styles.css           # Styling
-├── map-images/          # Uploaded map images
-├── vite.config.js       # Vite configuration
-└── package.json         # Project dependencies
+├── config.json                    # POI locations, settings, overlay config
+├── index.html                     # Main app structure
+├── script.js                      # Map logic, admin controls, POI rendering
+├── styles.css                     # Fluent UI theme, Got Greens colors
+├── map-overlay/                   # Watercolor overlay image
+│   └── gg_vertical_site_map_handdrawn.png
+├── vite.config.js                 # Dev server + /api/save-config endpoint
+└── package.json                   # Dependencies
 ```
 
 ## Building for Production
@@ -76,85 +100,87 @@ site_map/
 npm run build
 ```
 
-This creates a `dist/` folder ready for deployment.
+This creates a `dist/` folder ready for deployment to GitHub Pages.
 
 ## Deployment to GitHub Pages
 
-### Option 1: Automated GitHub Actions
-
-1. Create `.github/workflows/deploy.yml`:
-```yaml
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  build-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - run: npm ci
-      - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-```
-
-2. Push to GitHub:
-   ```bash
-   git add .
-   git commit -m "Add farm map with admin"
-   git push
-   ```
-
-3. Enable GitHub Pages in Settings → Pages → Source: `gh-pages` branch
-
-### Option 2: Manual Deploy
+### Quick Deploy
 
 ```bash
+# Build production version
 npm run build
-# Upload contents of dist/ folder to your hosting
+
+# Commit and push
+git add .
+git commit -m "Update farm map"
+git push origin main
+
+# Deploy to gh-pages branch
+npm run deploy
 ```
 
-## Data Format
+### Initial Setup
 
-See [config.json](config.json) for the complete data structure.
+1. **Install gh-pages** (if not already):
+   ```bash
+   npm install --save-dev gh-pages
+   ```
 
-**POIs** (global across maps):
+2. **Add deploy script** to package.json:
+   ```json
+   "scripts": {
+     "deploy": "gh-pages -d dist"
+   }
+   ```
+
+3. **Enable GitHub Pages**:
+   - Go to repository Settings → Pages
+   - Source: Deploy from branch `gh-pages`
+   - Save
+
+4. **Set base path** in vite.config.js:
+   ```js
+   export default {
+     base: '/Interactive-Farm-Map/'  // Your repo name
+   }
+   ```
+
+Your map will be live at: `https://yourusername.github.io/Interactive-Farm-Map/`
+
+## Configuration
+
+### config.json Structure
+
 ```json
 {
-  "id": "polytunnel",
-  "label": "Polytunnel", 
-  "description": "Short description...",
-  "url": "https://..."
+  "settings": {
+    "showLabelsDefault": true,
+    "showAdminButton": true,
+    "overlayVisible": true,
+    "overlayOpacity": 0.7,
+    "overlayCenter": [51.53347, -2.525802],
+    "overlayWidth": 0.002987,
+    "overlayRotation": 0
+  },
+  "pois": [
+    {
+      "id": "market-garden",
+      "label": "Market Garden",
+      "description": "600 square meter no-dig market garden...",
+      "url": "https://www.gotgreens.farm/point-of-interest/market-garden",
+      "lat": 51.5333,
+      "lng": -2.5252
+    }
+  ]
 }
 ```
 
-**Maps** (each with specific POI positions):
-```json
-{
-  "id": "default",
-  "filename": "farm-map.jpg",
-  "positions": {
-    "polytunnel": { "top": "8%", "left": "52%" }
-  }
-}
-```
+### Customizing the Overlay
 
-## Customization
-
-### Adjusting POI Positions
-
-Edit the `style` attribute on each `.poi-marker` div in `index.html`:
-```html
-<div class="poi-marker" data-poi="polytunnel" style="top: 8%; left: 52%;">
-```
+1. Replace `map-overlay/gg_vertical_site_map_handdrawn.png` with your image
+2. In admin mode, use "Edit Overlay Position" controls
+3. Adjust scale (80-500%) and opacity (0-100%) sliders
+4. Fine-tune position with arrow buttons (Shift for precision)
 
 ### Changing POI URLs
 

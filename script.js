@@ -25,7 +25,12 @@ let currentEditingPOI = null;
 let poiData = [];
 let settings = {
     showLabelsDefault: false,
-    showAdminButton: false
+    showAdminButton: false,
+    overlayVisible: true,
+    overlayOpacity: 0.7,
+    overlayCenter: [51.53347, -2.525802],
+    overlayWidth: 0.002987,  // degrees longitude
+    overlayRotation: 0  // degrees
 };
 
 // Map variables
@@ -33,6 +38,9 @@ let map;
 let userMarker;
 let watchId;
 let poiMarkers = [];
+let farmOverlay = null;
+let overlayVisible = true;
+let overlayOpacity = 0.7;
 
 // Default location (Got Greens Farm, Old Gloucester Rd, Winterbourne, Bristol BS36 1RZ)
 const DEFAULT_LOCATION = {
@@ -146,9 +154,11 @@ async function loadConfig() {
         if (response.ok) {
             const data = await response.json();
             poiData = data.pois || [];
-            settings = data.settings || settings;
+            // Merge settings to preserve defaults for new properties
+            settings = { ...settings, ...data.settings };
             applySettings();
             renderPOIs();
+            addFarmOverlay(); // Add overlay AFTER config is loaded
         } else {
             console.error('Config file not found, using defaults');
             initializeDefaultPOIs();
@@ -262,6 +272,125 @@ function initializeDefaultPOIs() {
     renderPOIs();
 }
 
+// Add farm overlay image
+function addFarmOverlay() {
+    // Image dimensions (actual pixel dimensions of the watercolor)
+    const imageAspectRatio =  1920 / 1280; // width/height from the image
+    
+    // Get center and width from settings
+    const center = settings.overlayCenter || [51.53347, -2.525802];
+    const width = settings.overlayWidth || 0.002987; // degrees longitude
+    const rotation = settings.overlayRotation || 0;
+    
+    // Calculate height maintaining aspect ratio
+    // At this latitude, 1 degree longitude ≈ 1.5 degrees latitude for equal distance
+    const height = width * (1 / imageAspectRatio) * 0.68; // latitude adjustment
+    
+    // Calculate corners
+    const halfWidth = width / 2;
+    const halfHeight = height / 2;
+    
+    const bounds = [
+        [center[0] - halfHeight, center[1] - halfWidth],  // SW
+        [center[0] + halfHeight, center[1] + halfWidth]   // NE
+    ];
+
+    // Remove existing overlay if present
+    if (farmOverlay && map.hasLayer(farmOverlay)) {
+        map.removeLayer(farmOverlay);
+    }
+
+    farmOverlay = L.imageOverlay(
+        'map-overlay/gg_vertical_site_map_handdrawn.png',
+        bounds,
+        {
+            opacity: settings.overlayOpacity || 0.7,
+            interactive: isAdminMode,
+            className: 'farm-overlay'
+        }
+    );
+
+    if (settings.overlayVisiblfe !== false) {
+        farmOverlay.addTo(map);
+    }
+}
+
+// Move overlay in a direction (for arrow buttons)
+function moveOverlay(direction, largeStep = false) {
+    const step = largeStep ? 0.0001 : 0.00002; // Large or fine adjustment
+    
+    switch(direction) {
+        case 'up':
+            settings.overlayCenter[0] += step;
+            break;
+        case 'down':
+            settings.overlayCenter[0] -= step;
+            break;
+        case 'left':
+            settings.overlayCenter[1] -= step;
+            break;
+        case 'right':
+            settings.overlayCenter[1] += step;
+            break;
+    }
+    
+    // Update overlay position without recreating
+    const width = settings.overlayWidth || 0.002987;
+    const imageAspectRatio = 1920 / 1280;
+    const height = width * (1 / imageAspectRatio) * 0.68;
+    const halfWidth = width / 2;
+    const halfHeight = height / 2;
+    
+    const newBounds = [
+        [settings.overlayCenter[0] - halfHeight, settings.overlayCenter[1] - halfWidth],
+        [settings.overlayCenter[0] + halfHeight, settings.overlayCenter[1] + halfWidth]
+    ];
+    
+    if (farmOverlay) {
+        farmOverlay.setBounds(newBounds);
+    }
+    
+    // Save config immediately after each movement
+    saveConfig();
+}
+
+// Toggle overlay visibility
+function toggleOverlay() {
+    if (map.hasLayer(farmOverlay)) {
+        map.removeLayer(farmOverlay);
+        settings.overlayVisible = false;
+    } else {
+        farmOverlay.addTo(map);
+        settings.overlayVisible = true;
+    }
+    saveConfig();
+}
+
+// Update overlay opacity
+function updateOverlayOpacity(value) {
+    overlayOpacity = value;
+    settings.overlayOpacity = value;
+    if (farmOverlay) {
+        farmOverlay.setOpacity(value);
+    }
+    saveConfig();
+}
+
+// Update overlay rotation
+function updateOverlayRotation(value) {
+    settings.overlayRotation = value;
+    // Note: CSS rotation causes positioning issues with Leaflet's geographic bounds
+    // Rotation is saved but not currently applied to prevent zoom-level drift
+    saveConfig();
+}
+
+// Update overlay scale
+function updateOverlayScale(value) {
+    settings.overlayWidth = 0.002987 * value;
+    addFarmOverlay();
+    saveConfig();
+}
+
 // Render POI markers on map
 function renderPOIs() {
     // Clear existing markers
@@ -279,7 +408,8 @@ function renderPOIs() {
             className: 'custom-marker-wrapper',
             html: labelHTML,
             iconSize: [24, 24],
-            iconAnchor: [12, 12]
+            iconAnchor: [12, 12],
+            popupAnchor: [0, -12]
         });
 
         const marker = L.marker([poi.lat, poi.lng], { icon, draggable: isAdminMode })
@@ -356,6 +486,86 @@ function setupEventListeners() {
         saveConfig();
     });
 
+    // Overlay controls
+    document.getElementById('overlay-toggle').addEventListener('change', (e) => {
+        toggleOverlay();
+    });
+
+    document.getElementById('overlay-opacity').addEventListener('input', (e) => {
+        const value = e.target.value / 100;
+        updateOverlayOpacity(value);
+        document.getElementById('opacity-value').textContent = e.target.value + '%';
+    });
+    
+    document.getElementById('overlay-rotation').addEventListener('input', (e) => {
+        const value = parseFloat(e.target.value);
+        updateOverlayRotation(value);
+        document.getElementById('rotation-value').textContent = value + '°';
+    });
+    
+    document.getElementById('overlay-scale').addEventListener('input', (e) => {
+        const value = parseFloat(e.target.value) / 100;
+        updateOverlayScale(value);
+        document.getElementById('scale-value').textContent = e.target.value + '%';
+    });
+    
+    // Overlay position editing
+    const editOverlayBtn = document.getElementById('edit-overlay-position');
+    const doneOverlayBtn = document.getElementById('done-overlay-position');
+    const overlayControls = document.getElementById('overlay-position-controls');
+    
+    if (editOverlayBtn && doneOverlayBtn && overlayControls) {
+        editOverlayBtn.addEventListener('click', () => {
+            overlayControls.style.display = 'block';
+            editOverlayBtn.style.display = 'none';
+        });
+        
+        doneOverlayBtn.addEventListener('click', () => {
+            overlayControls.style.display = 'none';
+            editOverlayBtn.style.display = 'block';
+        });
+    }
+    
+    const moveUpBtn = document.getElementById('move-up');
+    const moveDownBtn = document.getElementById('move-down');
+    const moveLeftBtn = document.getElementById('move-left');
+    const moveRightBtn = document.getElementById('move-right');
+    
+    if (moveUpBtn) {
+        moveUpBtn.addEventListener('click', (e) => {
+            moveOverlay('up', e.shiftKey);
+        });
+    }
+    
+    if (moveDownBtn) {
+        moveDownBtn.addEventListener('click', (e) => {
+            moveOverlay('down', e.shiftKey);
+        });
+    }
+    
+    if (moveLeftBtn) {
+        moveLeftBtn.addEventListener('click', (e) => {
+            moveOverlay('left', e.shiftKey);
+        });
+    }
+    
+    if (moveRightBtn) {
+        moveRightBtn.addEventListener('click', (e) => {
+            moveOverlay('right', e.shiftKey);
+        });
+    }
+    
+    // Keyboard arrow keys for overlay movement when position controls are visible
+    document.addEventListener('keydown', (e) => {
+        if (document.getElementById('overlay-position-controls').style.display !== 'block') return;
+        
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+            e.preventDefault();
+            const direction = e.key.replace('Arrow', '').toLowerCase();
+            moveOverlay(direction, e.shiftKey);
+        }
+    });
+
     // Modal form
     document.getElementById('poi-form').addEventListener('submit', savePOI);
     document.getElementById('modal-close-btn').addEventListener('click', closeModal);
@@ -389,6 +599,7 @@ function toggleAdminMode() {
     isAdminMode = !isAdminMode;
     document.getElementById('admin-controls').style.display = isAdminMode ? 'block' : 'none';
     renderPOIs(); // Re-render markers with/without drag
+    addFarmOverlay(); // Re-render overlay with/without drag
 }
 
 // Apply settings
@@ -397,6 +608,21 @@ function applySettings() {
         settings.showAdminButton ? 'flex' : 'none';
     document.getElementById('show-labels-toggle').checked = settings.showLabelsDefault;
     document.getElementById('show-admin-toggle').checked = settings.showAdminButton;
+    
+    if (document.getElementById('overlay-toggle')) {
+        document.getElementById('overlay-toggle').checked = settings.overlayVisible !== false;
+        const opacityPercent = Math.round((settings.overlayOpacity || 0.7) * 100);
+        document.getElementById('overlay-opacity').value = opacityPercent;
+        document.getElementById('opacity-value').textContent = opacityPercent + '%';
+        
+        const rotation = settings.overlayRotation || 0;
+        document.getElementById('overlay-rotation').value = rotation;
+        document.getElementById('rotation-value').textContent = rotation + '°';
+        
+        const scale = Math.round(((settings.overlayWidth || 0.002987) / 0.002987) * 100);
+        document.getElementById('overlay-scale').value = scale;
+        document.getElementById('scale-value').textContent = scale + '%';
+    }
 }
 
 // Open edit modal

@@ -44,8 +44,8 @@ let overlayOpacity = 0.7;
 
 // Default location (Got Greens Farm, Old Gloucester Rd, Winterbourne, Bristol BS36 1RZ)
 const DEFAULT_LOCATION = {
-    lat: 51.5333009704,
-    lng: -2.5289344788,
+    lat: 51.533569597131624,
+    lng: -2.5263324379920964,
     zoom: 17
 };
 

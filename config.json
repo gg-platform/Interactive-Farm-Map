@@ -1,1 +1,126 @@
-{"settings":{"showLabelsDefault":false,"showAdminButton":true,"overlayVisible":true,"overlayOpacity":0.45,"overlayCenter":[51.53351,-2.5263020000000034],"overlayWidth":0.0052571200000000005,"overlayRotation":0},"pois":[{"id":"market-garden","label":"Market Garden","description":"600 square meter no-dig market garden with 60 beds growing diverse organic produce","url":"https://www.gotgreens.farm/point-of-interest/market-garden","lat":51.53330430736917,"lng":-2.5256001949310303},{"id":"cider-orchard","label":"Cider Orchard","description":"Traditional orchard with diverse apple varieties for eating and cider making","url":"https://www.gotgreens.farm/point-of-interest/cider-orchard","lat":51.53337772104309,"lng":-2.5280839204788212},{"id":"outdoor-kitchen","label":"Outdoor Kitchen","description":"Communal outdoor cooking space for farm-fresh meals and workshops","url":"https://www.gotgreens.farm/point-of-interest/outdoor-kitchen","lat":51.53363133100555,"lng":-2.5270539522171025},{"id":"bradley-brook","label":"Bradley Brook","description":"Blue corridor connecting to local nature reserves, habitat for eels and wildlife","url":"https://www.gotgreens.farm/point-of-interest/bradley-brook","lat":51.53413520976485,"lng":-2.5263056159019475},{"id":"bats","label":"Bats","description":"Bat roost and habitat area with mature oak trees supporting multiple bat species","url":"https://www.gotgreens.farm/point-of-interest/bats","lat":51.53281543602144,"lng":-2.526914477348328},{"id":"coppice","label":"Coppice","description":"Traditional woodland management area with 420 native trees and osier willow","url":"https://www.gotgreens.farm/point-of-interest/coppice","lat":51.534128535910426,"lng":-2.5254097580909733},{"id":"solar-power","label":"Solar Power","description":"Off-grid solar power system demonstrating sustainable energy solutions","url":"https://www.gotgreens.farm/point-of-interest/solar-power","lat":51.533569597131624,"lng":-2.5263324379920964},{"id":"mushroom-bed","label":"Mushroom Bed","description":"Mushroom cultivation area for growing edible fungi","url":"https://www.gotgreens.farm/point-of-interest/mushroom-bed","lat":51.533482835870025,"lng":-2.5270539522171025},{"id":"historic-pond","label":"Historic Pond","description":"Traditional dew pond being restored to support wildlife and biodiversity","url":"https://www.gotgreens.farm/point-of-interest/historic-pond","lat":51.53305069558474,"lng":-2.528188526630402},{"id":"wildflower-circle","label":"Wildflower Circle","description":"Wildflower meadow with native species supporting pollinators","url":"https://www.gotgreens.farm/point-of-interest/wildflower-circle","lat":51.533693064795735,"lng":-2.5257503986358647},{"id":"herb-garden","label":"Herb Garden","description":"Perennial herb garden demonstrating permaculture principles","url":"https://www.gotgreens.farm/point-of-interest/herb-garden","lat":51.53344612913264,"lng":-2.526214420795441},{"id":"spuds-oak","label":"Spud's Oak","description":"Notable oak tree landmark on the farm","url":"https://www.gotgreens.farm/point-of-interest/spuds-oak","lat":51.53354123289124,"lng":-2.528684735298157},{"id":"Green woodworking","label":"Green woodworking","description":"Green woodworkingGreen woodworkingGreen woodworkingGreen woodworking","url":"https://www.gotgreens.farm/point-of-interest","lat":51.53269196597688,"lng":-2.527767419815064},{"id":"Compost toilets","label":"Compost toilets","description":"Compost toiletsCompost toiletsCompost toiletsCompost toilets","url":"https://www.gotgreens.farm/point-of-interest","lat":51.5330106514896,"lng":-2.5264021754264836}],"lastUpdated":"2026-05-01T15:38:44.149Z"}
+{
+  "settings": {
+    "showLabelsDefault": false,
+    "showAdminButton": false,
+    "overlayVisible": true,
+    "overlayOpacity": 0.65,
+    "overlayCenter": [51.53351, -2.5263020000000034],
+    "overlayWidth": 0.0052571200000000005,
+    "overlayRotation": 0
+  },
+  "pois": [
+    {
+      "id": "market-garden",
+      "label": "Market Garden",
+      "description": "600 square meter no-dig market garden with 60 beds growing diverse organic produce",
+      "url": "https://www.gotgreens.farm/point-of-interest/market-garden",
+      "lat": 51.53330430736917,
+      "lng": -2.5256001949310303
+    },
+    {
+      "id": "cider-orchard",
+      "label": "Cider Orchard",
+      "description": "Traditional orchard with diverse apple varieties for eating and cider making",
+      "url": "https://www.gotgreens.farm/point-of-interest/cider-orchard",
+      "lat": 51.53337772104309,
+      "lng": -2.5280839204788212
+    },
+    {
+      "id": "outdoor-kitchen",
+      "label": "Outdoor Kitchen",
+      "description": "Communal outdoor cooking space for farm-fresh meals and workshops",
+      "url": "https://www.gotgreens.farm/point-of-interest/outdoor-kitchen",
+      "lat": 51.53363133100555,
+      "lng": -2.5270539522171025
+    },
+    {
+      "id": "bradley-brook",
+      "label": "Bradley Brook",
+      "description": "Blue corridor connecting to local nature reserves, habitat for eels and wildlife",
+      "url": "https://www.gotgreens.farm/point-of-interest/bradley-brook",
+      "lat": 51.53413520976485,
+      "lng": -2.5263056159019475
+    },
+    {
+      "id": "bats",
+      "label": "Bats",
+      "description": "Bat roost and habitat area with mature oak trees supporting multiple bat species",
+      "url": "https://www.gotgreens.farm/point-of-interest/bats",
+      "lat": 51.53281543602144,
+      "lng": -2.526914477348328
+    },
+    {
+      "id": "coppice",
+      "label": "Coppice",
+      "description": "Traditional woodland management area with 420 native trees and osier willow",
+      "url": "https://www.gotgreens.farm/point-of-interest/coppice",
+      "lat": 51.534128535910426,
+      "lng": -2.5254097580909733
+    },
+    {
+      "id": "solar-power",
+      "label": "Solar Power",
+      "description": "Off-grid solar power system demonstrating sustainable energy solutions",
+      "url": "https://www.gotgreens.farm/point-of-interest/solar-power",
+      "lat": 51.533569597131624,
+      "lng": -2.5263324379920964
+    },
+    {
+      "id": "mushroom-bed",
+      "label": "Mushroom Bed",
+      "description": "Mushroom cultivation area for growing edible fungi",
+      "url": "https://www.gotgreens.farm/point-of-interest/mushroom-bed",
+      "lat": 51.533482835870025,
+      "lng": -2.5270539522171025
+    },
+    {
+      "id": "historic-pond",
+      "label": "Historic Pond",
+      "description": "Traditional dew pond being restored to support wildlife and biodiversity",
+      "url": "https://www.gotgreens.farm/point-of-interest/historic-pond",
+      "lat": 51.53305069558474,
+      "lng": -2.528188526630402
+    },
+    {
+      "id": "wildflower-circle",
+      "label": "Wildflower Circle",
+      "description": "Wildflower meadow with native species supporting pollinators",
+      "url": "https://www.gotgreens.farm/point-of-interest/wildflower-circle",
+      "lat": 51.533693064795735,
+      "lng": -2.5257503986358647
+    },
+    {
+      "id": "herb-garden",
+      "label": "Herb Garden",
+      "description": "Perennial herb garden demonstrating permaculture principles",
+      "url": "https://www.gotgreens.farm/point-of-interest/herb-garden",
+      "lat": 51.53344612913264,
+      "lng": -2.526214420795441
+    },
+    {
+      "id": "spuds-oak",
+      "label": "Spud's Oak",
+      "description": "Notable oak tree landmark on the farm",
+      "url": "https://www.gotgreens.farm/point-of-interest/spuds-oak",
+      "lat": 51.53354123289124,
+      "lng": -2.528684735298157
+    },
+    {
+      "id": "Green woodworking",
+      "label": "Green woodworking",
+      "description": "Green woodworkingGreen woodworkingGreen woodworkingGreen woodworking",
+      "url": "https://www.gotgreens.farm/point-of-interest",
+      "lat": 51.53269196597688,
+      "lng": -2.527767419815064
+    },
+    {
+      "id": "Compost toilets",
+      "label": "Compost toilets",
+      "description": "Compost toiletsCompost toiletsCompost toiletsCompost toilets",
+      "url": "https://www.gotgreens.farm/point-of-interest",
+      "lat": 51.5330106514896,
+      "lng": -2.5264021754264836
+    }
+  ],
+  "lastUpdated": "2026-05-01T15:38:44.149Z"
+}

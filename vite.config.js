@@ -10,7 +10,32 @@ export default defineConfig({
     // Custom middleware to handle config file writes
     middlewareMode: false
   },
+  publicDir: 'public',
   plugins: [
+    {
+      name: 'copy-static-files',
+      closeBundle() {
+        // Copy config.json to dist
+        const configSource = path.resolve(__dirname, 'config.json');
+        const configDest = path.resolve(__dirname, 'dist', 'config.json');
+        fs.copyFileSync(configSource, configDest);
+        
+        // Copy map-overlay folder to dist
+        const overlaySourceDir = path.resolve(__dirname, 'map-overlay');
+        const overlayDestDir = path.resolve(__dirname, 'dist', 'map-overlay');
+        if (!fs.existsSync(overlayDestDir)) {
+          fs.mkdirSync(overlayDestDir, { recursive: true });
+        }
+        const files = fs.readdirSync(overlaySourceDir);
+        files.forEach(file => {
+          const srcFile = path.join(overlaySourceDir, file);
+          const destFile = path.join(overlayDestDir, file);
+          if (fs.statSync(srcFile).isFile()) {
+            fs.copyFileSync(srcFile, destFile);
+          }
+        });
+      }
+    },
     {
       name: 'config-writer',
       configureServer(server) {

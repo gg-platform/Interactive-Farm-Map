@@ -1,1 +1,158 @@
-{"settings":{"showLabelsDefault":false,"showAdminButton":false,"overlayVisible":true,"overlayOpacity":1,"overlayCenter":[51.53359,-2.526062000000002],"overlayWidth":0.0045103700000000005,"overlayRotation":0},"pois":[{"id":"market-garden","label":"Market Garden","description":"600 square meter no-dig market garden with 60 beds growing diverse organic produce","url":"https://www.gotgreens.farm/point-of-interest/market-garden","lat":51.533424512968004,"lng":-2.525514364242554},{"id":"cider-orchard","label":"Cider Orchard","description":"Traditional orchard with diverse apple varieties for eating and cider making","url":"https://www.gotgreens.farm/point-of-interest/cider-orchard","lat":51.533484570307614,"lng":-2.5275769829750065},{"id":"outdoor-kitchen","label":"Outdoor Kitchen","description":"Communal outdoor cooking space for farm-fresh meals and workshops","url":"https://www.gotgreens.farm/point-of-interest/outdoor-kitchen","lat":51.533711467531,"lng":-2.5267240405082703},{"id":"bradley-brook","label":"Bradley Brook","description":"Blue corridor connecting to local nature reserves, habitat for eels and wildlife","url":"https://www.gotgreens.farm/point-of-interest/bradley-brook","lat":51.534086794414954,"lng":-2.5260829925537114},{"id":"bats","label":"Bats","description":"Bat roost and habitat area with mature oak trees supporting multiple bat species","url":"https://www.gotgreens.farm/point-of-interest/bats","lat":51.53309090967404,"lng":-2.527163922786713},{"id":"coppice","label":"Coppice","description":"Traditional woodland management area with 420 native trees and osier willow","url":"https://www.gotgreens.farm/point-of-interest/coppice","lat":51.53411516655907,"lng":-2.5252273678779606},{"id":"solar-power","label":"Solar Power","description":"Off-grid solar power system demonstrating sustainable energy solutions","url":"https://www.gotgreens.farm/point-of-interest/solar-power","lat":51.533661420346455,"lng":-2.5260829925537114},{"id":"mushroom-bed","label":"Mushroom Bed","description":"Mushroom cultivation area for growing edible fungi","url":"https://www.gotgreens.farm/point-of-interest/mushroom-bed","lat":51.53360304099743,"lng":-2.5266543030738835},{"id":"historic-pond","label":"Historic Pond","description":"Traditional dew pond being restored to support wildlife and biodiversity","url":"https://www.gotgreens.farm/point-of-interest/historic-pond","lat":51.53317591044091,"lng":-2.5277164578437805},{"id":"wildflower-circle","label":"Wildflower Circle","description":"Wildflower meadow with native species supporting pollinators","url":"https://www.gotgreens.farm/point-of-interest/wildflower-circle","lat":51.53374141770597,"lng":-2.525573372840882},{"id":"herb-garden","label":"Herb Garden","description":"Perennial herb garden demonstrating permaculture principles","url":"https://www.gotgreens.farm/point-of-interest/herb-garden","lat":51.5335796080358,"lng":-2.526045441627503},{"id":"spuds-oak","label":"Spud's Oak","description":"Notable oak tree landmark on the farm","url":"https://www.gotgreens.farm/point-of-interest/spuds-oak","lat":51.53365475981868,"lng":-2.527965903282166},{"id":"Green woodworking","label":"Green woodworking","description":"Green woodworkingGreen woodworkingGreen woodworkingGreen woodworking","url":"https://www.gotgreens.farm/point-of-interest","lat":51.53289898931783,"lng":-2.527314126491547},{"id":"Compost toilets","label":"Compost toilets","description":"Compost toiletsCompost toiletsCompost toiletsCompost toilets","url":"https://www.gotgreens.farm/point-of-interest","lat":51.5331625789375,"lng":-2.5261527299880986},{"id":"Chickens","label":"Chickens","description":"Chickens Chickens Chickens Chickens ","url":"https://www.gotgreens.farm/point-of-interest/","lat":51.53347949889513,"lng":-2.5260239839553837},{"id":"Three Brooks Local Nature Reserve","label":"Three Brooks Local Nature Reserve","description":"Three Brooks Local Nature ReserveThree Brooks Local Nature ReserveThree Brooks Local Nature Reserve","url":"https://www.gotgreens.farm/point-of-interest/","lat":51.5335061946875,"lng":-2.5242269039154053},{"id":"Main gate","label":"Main gate","description":"A large gate off the Old Gloucester Road.","url":"https://www.gotgreens.farm/point-of-interest/","lat":51.53370641263127,"lng":-2.524591684341431},{"id":"Stage","label":"Stage","description":"Share knowledge or vibes","url":"https://www.gotgreens.farm/event-list","lat":51.53344279215505,"lng":-2.526589930057526}],"lastUpdated":"2026-05-04T21:15:47.272Z"}
+{
+  "settings": {
+    "showLabelsDefault": false,
+    "showAdminButton": false,
+    "overlayVisible": true,
+    "overlayOpacity": 1,
+    "overlayCenter": [51.53359, -2.526062000000002],
+    "overlayWidth": 0.0045103700000000005,
+    "overlayRotation": 0
+  },
+  "pois": [
+    {
+      "id": "market-garden",
+      "label": "Market Garden",
+      "description": "600 square meter no-dig market garden with 60 beds growing diverse organic produce",
+      "url": "https://www.gotgreens.farm/point-of-interest/market-garden",
+      "lat": 51.533424512968004,
+      "lng": -2.525514364242554
+    },
+    {
+      "id": "cider-orchard",
+      "label": "Cider Orchard",
+      "description": "Traditional orchard with diverse apple varieties for eating and cider making",
+      "url": "https://www.gotgreens.farm/point-of-interest/cider-orchard",
+      "lat": 51.533484570307614,
+      "lng": -2.5275769829750065
+    },
+    {
+      "id": "outdoor-kitchen",
+      "label": "Outdoor Kitchen",
+      "description": "Communal outdoor cooking space for farm-fresh meals and workshops",
+      "url": "https://www.gotgreens.farm/point-of-interest/outdoor-kitchen",
+      "lat": 51.533711467531,
+      "lng": -2.5267240405082703
+    },
+    {
+      "id": "bradley-brook",
+      "label": "Bradley Brook",
+      "description": "Blue corridor connecting to local nature reserves, habitat for eels and wildlife",
+      "url": "https://www.gotgreens.farm/point-of-interest/bradley-brook",
+      "lat": 51.534086794414954,
+      "lng": -2.5260829925537114
+    },
+    {
+      "id": "bats",
+      "label": "Bats",
+      "description": "Bat roost and habitat area with mature oak trees supporting multiple bat species",
+      "url": "https://www.gotgreens.farm/point-of-interest/bats",
+      "lat": 51.53309090967404,
+      "lng": -2.527163922786713
+    },
+    {
+      "id": "coppice",
+      "label": "Coppice",
+      "description": "Traditional woodland management area with 420 native trees and osier willow",
+      "url": "https://www.gotgreens.farm/point-of-interest/coppice",
+      "lat": 51.53411516655907,
+      "lng": -2.5252273678779606
+    },
+    {
+      "id": "solar-power",
+      "label": "Solar Power",
+      "description": "Off-grid solar power system demonstrating sustainable energy solutions",
+      "url": "https://www.gotgreens.farm/point-of-interest/solar-power",
+      "lat": 51.533661420346455,
+      "lng": -2.5260829925537114
+    },
+    {
+      "id": "mushroom-bed",
+      "label": "Mushroom Bed",
+      "description": "Mushroom cultivation area for growing edible fungi",
+      "url": "https://www.gotgreens.farm/point-of-interest/mushroom-bed",
+      "lat": 51.53360304099743,
+      "lng": -2.5266543030738835
+    },
+    {
+      "id": "historic-pond",
+      "label": "Historic Pond",
+      "description": "Traditional dew pond being restored to support wildlife and biodiversity",
+      "url": "https://www.gotgreens.farm/point-of-interest/historic-pond",
+      "lat": 51.53317591044091,
+      "lng": -2.5277164578437805
+    },
+    {
+      "id": "wildflower-circle",
+      "label": "Wildflower Circle",
+      "description": "Wildflower meadow with native species supporting pollinators",
+      "url": "https://www.gotgreens.farm/point-of-interest/wildflower-circle",
+      "lat": 51.53374141770597,
+      "lng": -2.525573372840882
+    },
+    {
+      "id": "herb-garden",
+      "label": "Herb Garden",
+      "description": "Perennial herb garden demonstrating permaculture principles",
+      "url": "https://www.gotgreens.farm/point-of-interest/herb-garden",
+      "lat": 51.5335796080358,
+      "lng": -2.526045441627503
+    },
+    {
+      "id": "spuds-oak",
+      "label": "Spud's Oak",
+      "description": "Ancient oak tree serving as a beloved landmark and wildlife habitat on the farm",
+      "url": "https://www.gotgreens.farm/point-of-interest/spuds-oak",
+      "lat": 51.53365475981868,
+      "lng": -2.527965903282166
+    },
+    {
+      "id": "Green woodworking",
+      "label": "Green woodworking",
+      "description": "Traditional woodcraft area using hand tools to work with freshly cut timber from the coppice",
+      "url": "https://www.gotgreens.farm/point-of-interest/green-woodworking",
+      "lat": 51.53289898931783,
+      "lng": -2.527314126491547
+    },
+    {
+      "id": "Compost toilets",
+      "label": "Compost toilets",
+      "description": "Ecological dry composting toilet system turning waste into valuable soil amendment",
+      "url": "https://www.gotgreens.farm/point-of-interest/compost-toilet",
+      "lat": 51.5331625789375,
+      "lng": -2.5261527299880986
+    },
+    {
+      "id": "Chickens",
+      "label": "Chickens",
+      "description": "Free-range chicken flock providing fresh eggs and natural pest control for the garden",
+      "url": "https://www.gotgreens.farm/point-of-interest/chickens",
+      "lat": 51.53347949889513,
+      "lng": -2.5260239839553837
+    },
+    {
+      "id": "Three Brooks Local Nature Reserve / Monk's Pool",
+      "label": "Three Brooks Local Nature Reserve / Monk's Pool",
+      "description": "Nearby nature reserve with wetland habitats, walking trails and rich biodiversity connecting to the farm",
+      "url": "https://www.gotgreens.farm/point-of-interest/monks-pool-local-nature-reserve",
+      "lat": 51.5335061946875,
+      "lng": -2.5242269039154053
+    },
+    {
+      "id": "Main gate",
+      "label": "Main gate",
+      "description": "Main farm entrance from Old Gloucester Road welcoming visitors to the community farm",
+      "url": "https://www.gotgreens.farm",
+      "lat": 51.53370641263127,
+      "lng": -2.524591684341431
+    },
+    {
+      "id": "Stage",
+      "label": "Stage",
+      "description": "Outdoor performance space for workshops, live music, talks and community gatherings",
+      "url": "https://www.gotgreens.farm/event-list",
+      "lat": 51.53344279215505,
+      "lng": -2.526589930057526
+    }
+  ],
+  "lastUpdated": "2026-05-04T21:15:47.272Z"
+}
